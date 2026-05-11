@@ -116,9 +116,9 @@ src/
 - DTOs ficam em `src/modules/*/dto/*.dto.ts`.
 
 ### Migrations
-- **Local**: `pnpm prisma migrate dev --name xxx` cria diretório em `prisma/migrations/`.
+- **Local**: `npx prisma migrate dev --name xxx` cria diretório em `prisma/migrations/`.
 - **Prod (Supabase)**: aplicar via `mcp__supabase__apply_migration` (idempotente). SQL fica em `prisma/manual-migrations/`.
-- DEPOIS de aplicar em prod, rodar `pnpm prisma db pull` localmente pra reconciliar.
+- DEPOIS de aplicar em prod, rodar `npx prisma db pull` localmente pra reconciliar.
 
 ## Schema Prisma — gotchas conhecidas
 

@@ -1,18 +1,17 @@
 FROM node:20-alpine AS base
-RUN corepack enable && corepack prepare pnpm@9.12.0 --activate
 WORKDIR /app
 
 FROM base AS deps
-COPY package.json pnpm-lock.yaml* ./
+COPY package.json package-lock.json ./
 COPY prisma ./prisma
-RUN pnpm install --frozen-lockfile --prod=false
-RUN pnpm prisma generate
+RUN npm ci --include=dev
+RUN npx prisma generate
 
 FROM base AS builder
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-RUN pnpm prisma generate
-RUN pnpm build
+RUN npx prisma generate
+RUN npm run build
 
 FROM base AS runner
 ENV NODE_ENV=production
